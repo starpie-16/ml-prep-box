@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import utils
 
 class toolbox:
   def __init__ (self):
@@ -58,6 +59,13 @@ class toolbox:
                 'distinct_values': series.nunique(),
                 'is_constant': series.nunique() <= 1
       }
+
+      if dtype =='numeric'
+
+      meta[col]['skew'] = utils.calculate_skewness(series)
+      outlier_info = utils.detect_outliers_iqr(series)
+      meta[col]['outlier_ratio'] = outlier_info['outlier_ratio']
+      meta[col]['outlier_count'] = outlier_info['outlier_count']
 
       meta[col]['action'] = self. _get_suggested_action(meta[col])
 
