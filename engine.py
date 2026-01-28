@@ -7,10 +7,11 @@ class toolbox:
     self.target = None
     self.metadata = None
     self.config = {}
+    self.custom_registry = {}
 
-  
 
-  def setup(self, data, target, ignore_features=None, numeric_feature=None, categorical_feature=None):
+
+  def setup(self, data, target, ignore_features=None, numeric_features=None, categorical_features=None):
     """
     initialize my metadata and config
     """
@@ -20,46 +21,68 @@ class toolbox:
     self.target = target
     self.config['ignore'] = ignore_features or []
 
-    #1. remove ignore columns before analyzing
-    features_to_analyze = [c for c in self.data.columns if c not in self.config and c != target]
+    features_to_analyze = [c for c in self.data.columns if c not in self.config['ignore'] and c != target]
 
-    #2. metadata function
     self.metadata = self._extract_metadata(self.data[features_to_analyze])
 
-    #3. override metadata for users' calling
     if numeric_features:
       for col in numeric_features:
         if col in self.metadata: self.metadata[col]['type'] = 'numeric'
-    
+
     if categorical_features:
       for col in categorical_features:
         if col in self.metadata: self.metadata[col]['type'] = 'categorical'
 
-  
+
 
   def _extract_metadata(self, df):
-    """ay
+    """
     metadata is created here
     """
     meta = {}
 
     for col in df.columns:
-      if pd.api.types.is_numeric_dtype(df[col]):
+      series = df[col]
+      if pd.api.types.is_numeric_dtype(series):
         dtype = 'numeric'
+
+      elif pd.api.types.is_datetime64_any_dtype(series):
+        dtype = 'datetime'
+
       else:
         dtype = 'categorical'
 
       meta[col] = {
                 'type': dtype,
                 'nan_ratio': df[col].isnull().mean(),
-                'unique_count': df[col].nunique(),
-                'suggested_imputer': 'mean' if dtype == 'numeric' else 'most_frequent',
-                'suggested_scaler': 'standard' if dtype == 'numeric' else None
+                'distinct_values': series.nunique(),
+                'is_constant': series.nunique() <= 1
       }
 
-      return meta
+      meta[col]['action'] = self. _get_suggested_action(meta[col])
+
+    return meta
 
 
+  def _get_suggested_action(self, col_meta):
+      if col_meta['nan_ratio'] > 0.5: return 'drop_high_nan'
 
-    def show_metadata(self):
-      return pd.DataFrame(self.metadat).T
+      if col_meta['type'] == 'numeric':
+        outlier_ratio = col_meta.get('outlier_ratio', 0)
+        skew_val = col_meta.get('skew', 0)
+
+        if outlier_ratio > 0.05 or abs(skew_val) > 1.0:
+          return 'robust_scale'
+
+        return 'standard_scale'
+      
+      return 'onehot_encode'
+
+      
+
+  def _register_custom_action(self, action_name, func):
+      self.custom_registry[action_name] = func
+      print(f" Registered custom action: {action_name}")
+
+  def show_metadata(self):
+      return pd.DataFrame(self.metadata).T
