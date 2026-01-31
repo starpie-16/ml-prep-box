@@ -16,5 +16,32 @@ def detect_outliers(series):
 
 
 
+# =======================================================================
+
+
 def calculate_skewness(series):
   return series.skew()
+
+
+
+# =======================================================================
+
+
+def infer_feature_type(series, categorical_threshold = 20):
+  if series.nunique() <= 1: 
+    return 'constant'
+
+  if pd.api.types.is_numeric_dtype(series):
+    if series.nunique() < categorical_threshold:
+      return 'numeric_categorical'
+    return 'numeric'
+
+  if pd.api.types.is_datetime64_any_dtype(series):
+    return 'datetime'
+
+
+
+# =======================================================================
+
+
+  return 'categorical'
