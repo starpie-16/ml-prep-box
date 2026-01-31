@@ -44,34 +44,28 @@ class toolbox:
 
     for col in df.columns:
       series = df[col]
-      if pd.api.types.is_numeric_dtype(series):
-        dtype = 'numeric'
-
-      elif pd.api.types.is_datetime64_any_dtype(series):
-        dtype = 'datetime'
-
-      else:
-        dtype = 'categorical'
+      
+      col_type = utils.infer_feature_type(series) 
 
       meta[col] = {
-                'type': dtype,
+                'type': col_type,
                 'nan_ratio': df[col].isnull().mean(),
                 'distinct_values': series.nunique(),
-                'is_constant': series.nunique() <= 1
+                'is_constant': col_type == 'constant'
       }
 
-      if dtype =='numeric'
-
-      meta[col]['skew'] = utils.calculate_skewness(series)
-      outlier_info = utils.detect_outliers_iqr(series)
-      meta[col]['outlier_ratio'] = outlier_info['outlier_ratio']
-      meta[col]['outlier_count'] = outlier_info['outlier_count']
+      if col_type == 'numeric':
+        meta[col].update({
+            'skew': utils.calculate_skewness(series),
+            'outlier_ratio': utils.detect_outliers(series)['outlier_ratio']
+        })
 
       meta[col]['action'] = self. _get_suggested_action(meta[col])
 
     return meta
 
 
+  
   def _get_suggested_action(self, col_meta):
       if col_meta['nan_ratio'] > 0.5: return 'drop_high_nan'
 
