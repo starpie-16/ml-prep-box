@@ -24,16 +24,15 @@ class toolbox:
 
     features_to_analyze = [c for c in self.data.columns if c not in self.config['ignore'] and c != target]
 
-    self.metadata = self._extract_metadata(self.data[features_to_analyze])
+    overrides = {}
 
     if numeric_features:
-      for col in numeric_features:
-        if col in self.metadata: self.metadata[col]['type'] = 'numeric'
+        for col in numeric_features: overrides[col] = 'numeric'
 
     if categorical_features:
-      for col in categorical_features:
-        if col in self.metadata: self.metadata[col]['type'] = 'categorical'
+        for col in categorical_features: overrides[col] = 'categorical'
 
+    self.metadata = self._extract_metadata(self.data[features_to_analyze], overrides)
 
 
   def _extract_metadata(self, df):
@@ -44,15 +43,23 @@ class toolbox:
 
     for col in df.columns:
       series = df[col]
-      
-      col_type = utils.infer_feature_type(series) 
+
+      col_type = overrides.get(col) or utils.infer_feature_type(series) #categorical or numeric
+
+      missing_stats = utils.get_missing_stats(series)
+      cardinality_stats = utils.get_cardinality_stats(series)
 
       meta[col] = {
                 'type': col_type,
-                'nan_ratio': df[col].isnull().mean(),
-                'distinct_values': series.nunique(),
+                'nan_ratio':missing_stats['nan_ratio'],
+                'distinct_values': cardinality_stats['distinct_count'],
+                'is_high_cardinality': cardinality_stats['is_high_cardinality'],
                 'is_constant': col_type == 'constant'
       }
+
+      if col == self.target and col_type == 'categorical':
+        meta[col]['imbalance_info'] = utils.check_class_imbalance(series)
+
 
       if col_type == 'numeric':
         meta[col].update({
@@ -67,7 +74,12 @@ class toolbox:
 
   
   def _get_suggested_action(self, col_meta):
-      if col_meta['nan_ratio'] > 0.5: return 'drop_high_nan'
+
+    # --- 1. global rules ---
+      if col_meta.get('is_constant') or col_meta.get('nan_ratio', 0) > 0.5:
+        return 'drop'
+
+    # --- 2. numeric precess ---
 
       if col_meta['type'] == 'numeric':
         outlier_ratio = col_meta.get('outlier_ratio', 0)
@@ -75,10 +87,15 @@ class toolbox:
 
         if outlier_ratio > 0.05 or abs(skew_val) > 1.0:
           return 'robust_scale'
-
         return 'standard_scale'
-      
-      return 'onehot_encode'
+
+    # --- 3. categorical process ---
+      if col_meta['type'] == 'categorical':
+        if col_meta.get('is_high_cardinality'):
+          return 'label_encode'
+        return 'onehot_encode'
+
+      return 'passthrough'
 
       
 
