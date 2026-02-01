@@ -39,9 +39,62 @@ def infer_feature_type(series, categorical_threshold = 20):
   if pd.api.types.is_datetime64_any_dtype(series):
     return 'datetime'
 
+  return 'categorical'
 
 
 # =======================================================================
 
 
-  return 'categorical'
+
+
+def get_missing_stats(series):
+  """
+  return nan_count & nan_ratio
+  """
+  nan_count = series.isnull().sum()
+  return {
+      'nan_count': nan_count,
+      'nan_ratio': nan_count / len(series) if len(series) > 0 else 0
+  }
+
+
+
+
+# ============================================================================
+
+
+
+def get_cardinality_stats(series):
+  """
+  checking data type diversity 
+  """
+
+  distinct_count = series.nunique()
+  return {
+      'distinct_count': distinct_count,
+      'is_high_cardinality': distinct_count > 50 
+  }
+
+
+
+
+# ============================================================================
+
+
+
+def check_class_imbalance(series):
+  """
+  categorical target only
+  """
+
+  counts = series.value_counts(normalize = True)
+  imbalance_ratio = counts.min() / count.max() # min / max
+  return {
+      'class_distribution': counts.to_dict(),
+      'is_imbalanced': imbalanced_ration < 0.2 # 1:5
+  }
+
+
+
+
+# ============================================================================
