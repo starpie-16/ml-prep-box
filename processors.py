@@ -25,3 +25,25 @@ def apply_imputation(series, dtype):
   imputer = SimpleImputer(strategy = strategy)
 
   return imupter.fit_transform(series.values.reshape(-1, 1))
+
+
+
+
+
+# ============================================================================
+
+
+
+
+
+def apply_onehot_encoding(series, col_name):
+
+  encoder = OneHotEncoder(handle_unknown = 'ignore', sparse_output = False)
+
+  encoded_data = encoder.fit_transform(series.values.reshape(-1, 1))
+
+  new_col_names = [f"{col_name}_{cat}" for cat in encoder.categories_[0]]
+
+  encoded_df = pd.DataFrame(encoded_data, columns = new_col_names, index = series.index)
+
+  return encoded_df, encoder
