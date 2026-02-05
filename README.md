@@ -24,14 +24,24 @@ The toolbox follows a modular, hybrid architecture:
 
 ---
 
-### 🚀 Roadmap & Current Progress
-| Feature | Status |
-| :--- | :---: |
-| Metadata-driven architecture & Plugin System | ✅ |
-| `setup()` function with feature filtering | ✅ |
-| Intelligent inference (Skewness & IQR) | ✅ |
-| Modular core logic (`utils.py`) | ✅ |
-| **`apply_transform()` for automated execution** | 🔄 *Next Step* |
+## 🚀 Project Progress
+
+### 🏗 Phase 1: Data Analysis (Utils) - [100%]
+- [x] Auto infer feature types (Numeric, Categorical, Constant)
+- [x] Outlier detection & Skewness calculation
+- [x] Missing values & Cardinality statistics
+- [x] Target class imbalance check
+
+### ⚙️ Phase 2: Preprocessing (Processors) - [85%]
+- [x] Automated Imputation (Median/Most Frequent)
+- [x] Scaling (Standard/Robust)
+- [x] One-Hot Encoding with state management
+- [ ] Label Encoding for high cardinality features
+- [ ] Target Leakage detection report
+
+### 🧪 Phase 3: Model Training & Evaluation - [Coming Soon]
+- [ ] Automated model selection
+- [ ] Hyperparameter tuning
 
 ---
 
