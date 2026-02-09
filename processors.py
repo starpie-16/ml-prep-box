@@ -47,3 +47,20 @@ def apply_onehot_encoding(series, col_name):
   encoded_df = pd.DataFrame(encoded_data, columns = new_col_names, index = series.index)
 
   return encoded_df, encoder
+
+
+
+
+
+# ============================================================================
+
+
+
+
+
+def apply_label_encoding(series):
+  le = LabelEncoder() 
+  encoded_col = le.fit_transform(series.astype(str))
+
+  return encoded_col, le
+
