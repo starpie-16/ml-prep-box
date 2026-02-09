@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import utils
+import processors
 
 class toolbox:
   def __init__ (self):
@@ -105,3 +106,49 @@ class toolbox:
 
   def show_metadata(self):
       return pd.DataFrame(self.metadata).T
+
+
+  def apply_transform(self):
+    """
+    Execute transformations based on the suggested actions in metadata.
+    """
+
+    print('--- STARTING TRANSFORMATION ---')
+    df_transformed = self.data.copy()
+# drop columns
+    cols_to_drop = [col for col, info in self.metadata.items() if info['action'] == 'drop']
+    df_transformed.drop(columns = cols_to_drop, inplace = True)
+    print(f"Dropped columns: {cols_to_drop}")
+
+
+    for col, info in self.metadata.items():
+      if col in df_transformed.columns:
+        action = info['action']
+        dtype = info['type']
+# imputation
+        if info['nan_ratio'] > 0:
+          processed_array, imputer =  processors.apply_imputation(df_transformed[col], dtype)
+          df_transformed[col] = processed_array
+          self.metadata[col]['imputer_obj'] = imputer
+
+# scaling
+        if action in ['standard_scale', 'robust_scale']:
+          processed_array, scaler = processors.apply_scaling(df_transformed[col], method = action)
+          df_transformed[col] = processed_array
+          self.metadata[col]['scaler_obj'] = scaler
+
+# encoding
+        elif action == 'onehot_encode':
+          encoded_df, encoder = processors.apply_onehot_encoding(df_transformed[col], col)
+          df_transformed = df_transformed.drop(columns = [col]).join(encoded_df)
+          self.metadata[col]['encoder'] = encoder 
+
+        
+        elif action =='label_encode':
+          processed_array, le_obj = processors.apply_label_encoding(df_transformed[col])
+          df_transformed[col] = processed_array
+          self.metadata[col]['le_obj'] = le_obj
+          
+
+    print('--- TRANSFORMATION COMPLETE ---')
+    return df_transformed
