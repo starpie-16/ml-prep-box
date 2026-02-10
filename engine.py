@@ -35,7 +35,20 @@ class toolbox:
 
     self.metadata = self._extract_metadata(self.data[features_to_analyze], overrides)
 
+  
+  def optimize_memory(self, df):
+    for col in df.columns:
+      col_type = df[col].dtype
 
+      if 'int' in str(col_type):
+        df[col] = pd.to_numeric(df[col], downcast = 'integer')
+
+      elif 'float' in str(col_type):
+        df[col] = pd.to_numeric(df[col], downcast = 'float')
+
+    return df
+    
+  
   def _extract_metadata(self, df):
     """
     metadata is created here
