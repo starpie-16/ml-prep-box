@@ -12,7 +12,9 @@ def detect_outliers(series):
   return {
       'outlier_count': len(outliers),
       'outlier_ratio': len(outliers) / len(series) if len(series) > 0 else 0,
-  }   'bounds': (lower_bound, upper_bound)
+      'bounds': (lower_bound, upper_bound)
+  }
+  
 
 
 
@@ -42,6 +44,8 @@ def infer_feature_type(series, categorical_threshold = 20):
   return 'categorical'
 
 
+
+
 # =======================================================================
 
 
@@ -64,6 +68,8 @@ def get_missing_stats(series):
 
 
 
+
+
 def get_cardinality_stats(series):
   """
   checking data type diversity 
@@ -79,6 +85,8 @@ def get_cardinality_stats(series):
 
 
 # ============================================================================
+
+
 
 
 
