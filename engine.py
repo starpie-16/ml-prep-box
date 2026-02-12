@@ -85,7 +85,17 @@ class toolbox:
 
     return meta
 
+  
+  def suggest(self):
+    print(f"{'Cột':<20} | {'Đề xuất xử lý':<20}")
+    print("-" * 45)
 
+    for col, meta in self.metadata.items():
+      action = self._get_suggested_action(meta)
+      self.metadata[col]['action'] = action
+
+      print(f"{col:<20} | {action:<20}")
+      
   
   def _get_suggested_action(self, col_meta):
 
