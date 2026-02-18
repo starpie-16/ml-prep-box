@@ -1,0 +1,11 @@
+LICENSE
+README.md
+setup.py
+datawise/__init__.py
+datawise/engine.py
+datawise/processors.py
+datawise/utils.py
+datawise.egg-info/PKG-INFO
+datawise.egg-info/SOURCES.txt
+datawise.egg-info/dependency_links.txt
+datawise.egg-info/top_level.txt
