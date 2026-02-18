@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np   
+
 def detect_outliers(series):
   # using Interquartile Range
   Q1 = series.quantile(0.25)
@@ -96,10 +99,10 @@ def check_class_imbalance(series):
   """
 
   counts = series.value_counts(normalize = True)
-  imbalance_ratio = counts.min() / count.max() # min / max
+  imbalanced_ratio = counts.min() / counts.max() # min / max
   return {
       'class_distribution': counts.to_dict(),
-      'is_imbalanced': imbalanced_ration < 0.2 # 1:5
+      'is_imbalanced': imbalanced_ratio < 0.2 # 1:5
   }
 
 
