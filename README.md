@@ -7,7 +7,7 @@
 ### 📝 Project Overview
 An automated, **metadata-driven** data preparation toolbox designed to streamline preprocessing workflows by analyzing data characteristics. 
 
-> **Focus:** Currently optimized for **basic tabular data**.
+> **Focus:** Currently benchmarked and optimized for **basic tabular data**.
 
 The project features:
 * **Automated Type Inference:** Detecting numeric, categorical, and datetime features.
@@ -32,16 +32,25 @@ The toolbox follows a modular, hybrid architecture:
 - [x] Missing values & Cardinality statistics
 - [x] Target class imbalance check
 
-### ⚙️ Phase 2: Preprocessing (Processors) - [85%]
+### ⚙️ Phase 2: Preprocessing (Processors) - [100%]
 - [x] Automated Imputation (Median/Most Frequent)
 - [x] Scaling (Standard/Robust)
 - [x] One-Hot Encoding with state management
-- [ ] Label Encoding for high cardinality features
-- [ ] Target Leakage detection report
+- [x] Label Encoding for high cardinality features
+- [x] Package distribution & setup.py integration
+- [x] Verification with real-world datasets (Titanic Demo)
 
 ### 🧪 Phase 3: Model Training & Evaluation - [Coming Soon]
 - [ ] Automated model selection
 - [ ] Hyperparameter tuning
+
+---
+
+## 🧪 Validation & Demo
+We verified the DataWise engine using the Titanic dataset. The engine successfully generated optimal preprocessing strategies for mixed data types:
+  Scaling: Applied to PassengerId, Age, Fare.
+  Encoding: Automatically mapped for Name, Sex, Ticket, Embarked.
+  Status: Zero errors found in the final transformation pipeline.
 
 ---
 
@@ -71,17 +80,30 @@ Every edge case or failure identified during testing follows a strict resolution
 
 ---
 
+## 🚀 Installation (Developer Mode)
+
+To use **DataWise** in your local projects while staying synchronized with the source code:
+
+```bash
+git clone [https://github.com/starpie-16/ml-prep-box.git](https://github.com/starpie-16/ml-prep-box.git)
+cd ml-prep-box
+pip install -e .
+```
+
+---
+
 ## 📅 Updated Technical Log
 
-**Current Focus:** Building the transformation engine to map metadata actions to [Scikit-Learn](https://scikit-learn.org) transformers.
+**Current Focus:** Finalizing the Python package distribution and creating the first official GitHub Release.
 
-**Latest Milestone:** Completed the core `processors.py` module (Scaling, Imputation, One-Hot Encoding) and integrated state management into `apply_transform`.
+**Latest Milestone:** Successfully restructured the project into the datawise package.
 
 **Upcoming Roadmap:**
 *   Testing the pipeline against real-world datasets ([PyCaret](https://pycaret.org), [UCI](https://archive.ics.uci.edu), [Kaggle](https://www.kaggle.com)) to ensure robustness.
 *   Official public release as a structured library once benchmarking is complete.
+*   Adding support for automated model selection.
 
-**Last Update:** `2026-02-07`
+**Last Update:** `2026-02-19`
 
 
 ---
