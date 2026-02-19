@@ -46,6 +46,21 @@ The toolbox follows a modular, hybrid architecture:
 
 ---
 
+
+## 📊 Datasets
+
+This project uses the following datasets for testing and demonstration:
+
+| Dataset | Source | Description | Path |
+| :--- | :--- | :--- | :--- |
+| **Titanic** | [Kaggle](https://www.kaggle.com/c/titanic) | Binary classification for survival prediction. | `data/raw/titanic.csv` |
+
+> **Note:** All raw datasets are stored in `dataset/raw/`. The processed versions after running the `toolbox` will be saved in `dataset/processed/`.
+
+
+---
+
+
 ## 🧪 Validation & Demo
 We verified the DataWise engine using the Titanic dataset. The engine successfully generated optimal preprocessing strategies for mixed data types:
   Scaling: Applied to PassengerId, Age, Fare.
