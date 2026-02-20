@@ -69,7 +69,7 @@ We verified the DataWise engine using the Titanic dataset. The engine successful
 
 ---
 
-## 🧪 Benchmarking & Validation Framework
+## 🧪 Benchmarking & Validation Framework (comming soon...)
 
 To ensure the stability, reliability, and precision of the automated pipeline, the toolbox undergoes continuous "stress testing" using diverse real-world datasets.
 
