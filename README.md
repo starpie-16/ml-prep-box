@@ -95,6 +95,16 @@ Every edge case or failure identified during testing follows a strict resolution
 
 ---
 
+## 🚀 Quick Start & Interactive Demo
+
+The easiest way to explore **DataWise** is through our interactive Google Colab notebook. You can see the engine in action with the Titanic dataset, including memory optimization and automated preprocessing.
+
+Alternatively, you can access the file `datawise_Quickstart_v1.ipynb` directly for a quick preview..
+
+| Feature | Link |
+| :--- | :--- |
+| **Interactive Demo** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xpPM2B_094TLku6l-f9QkUgxuZ61Z5RI?usp=sharing) |
+
 ## 🚀 Installation (Developer Mode)
 
 To use **DataWise** in your local projects while staying synchronized with the source code:
@@ -107,6 +117,35 @@ pip install -e .
 
 ---
 
+## 📊 Performance Showcase
+Here is a glimpse of what DataWise can do (Results from our Titanic benchmark):
+
+
+**1. Memory Optimization**
+
+By automatically downcasting data types, we achieved significant memory reduction:
+* Before: 0.27 MB
+* After: 0.24 MB
+* Efficiency: ~11% reduction (even on tiny datasets!)
+
+
+
+**2. Automated Strategy Suggestion**
+
+The engine analyzes your data and suggests the most robust strategies:
+
+![Strategy Suggestion](<img width="359" height="346" alt="image" src="https://github.com/user-attachments/assets/fe3aa1db-4c6d-40d0-8dae-7f1ecc9d30fa" />)
+
+**3. Final Transformed Data**
+   
+A preview of the production-ready data after One-Hot Encoding and Scaling:
+
+![Transformed Data](<img width="1764" height="867" alt="image" src="https://github.com/user-attachments/assets/11680229-25dc-4bfb-a997-074557f35012" />)
+
+  
+---
+
+
 ## 📅 Updated Technical Log
 
 **Current Focus:** Finalizing the Python package distribution and creating the first official GitHub Release.
@@ -118,7 +157,7 @@ pip install -e .
 *   Official public release as a structured library once benchmarking is complete.
 *   Adding support for automated model selection.
 
-**Last Update:** `2026-02-19`
+**Last Update:** `2026-02-20`
 
 
 ---
