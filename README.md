@@ -7,7 +7,7 @@
 ### 📝 Project Overview
 An automated, **metadata-driven** data preparation toolbox designed to streamline preprocessing workflows by analyzing data characteristics. 
 
-> **Focus:** Currently optimized for **basic tabular data**.
+> **Focus:** Currently benchmarked and optimized for **basic tabular data**.
 
 The project features:
 * **Automated Type Inference:** Detecting numeric, categorical, and datetime features.
@@ -32,12 +32,13 @@ The toolbox follows a modular, hybrid architecture:
 - [x] Missing values & Cardinality statistics
 - [x] Target class imbalance check
 
-### ⚙️ Phase 2: Preprocessing (Processors) - [85%]
+### ⚙️ Phase 2: Preprocessing (Processors) - [100%]
 - [x] Automated Imputation (Median/Most Frequent)
 - [x] Scaling (Standard/Robust)
 - [x] One-Hot Encoding with state management
-- [ ] Label Encoding for high cardinality features
-- [ ] Target Leakage detection report
+- [x] Label Encoding for high cardinality features
+- [x] Package distribution & setup.py integration
+- [x] Verification with real-world datasets (Titanic Demo)
 
 ### 🧪 Phase 3: Model Training & Evaluation - [Coming Soon]
 - [ ] Automated model selection
@@ -45,7 +46,30 @@ The toolbox follows a modular, hybrid architecture:
 
 ---
 
-## 🧪 Benchmarking & Validation Framework
+
+## 📊 Datasets
+
+This project uses the following datasets for testing and demonstration:
+
+| Dataset | Source | Description | Path |
+| :--- | :--- | :--- | :--- |
+| **Titanic** | [Kaggle](https://www.kaggle.com/c/titanic) | Binary classification for survival prediction. | `data/raw/titanic.csv` |
+
+> **Note:** All raw datasets are stored in `dataset/raw/`. The processed versions after running the `toolbox` will be saved in `dataset/processed/`.
+
+
+---
+
+
+## 🧪 Validation & Demo
+We verified the DataWise engine using the Titanic dataset. The engine successfully generated optimal preprocessing strategies for mixed data types:
+  Scaling: Applied to PassengerId, Age, Fare.
+  Encoding: Automatically mapped for Name, Sex, Ticket, Embarked.
+  Status: Zero errors found in the final transformation pipeline.
+
+---
+
+## 🧪 Benchmarking & Validation Framework (comming soon...)
 
 To ensure the stability, reliability, and precision of the automated pipeline, the toolbox undergoes continuous "stress testing" using diverse real-world datasets.
 
@@ -71,17 +95,69 @@ Every edge case or failure identified during testing follows a strict resolution
 
 ---
 
+## 🚀 Quick Start & Interactive Demo
+
+The easiest way to explore **DataWise** is through our interactive Google Colab notebook. You can see the engine in action with the Titanic dataset, including memory optimization and automated preprocessing.
+
+Alternatively, you can access the file `datawise_Quickstart_v1.ipynb` directly for a quick preview..
+
+| Feature | Link |
+| :--- | :--- |
+| **Interactive Demo** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xpPM2B_094TLku6l-f9QkUgxuZ61Z5RI?usp=sharing) |
+
+## 🚀 Installation (Developer Mode)
+
+To use **DataWise** in your local projects while staying synchronized with the source code:
+
+```bash
+git clone [https://github.com/starpie-16/ml-prep-box.git](https://github.com/starpie-16/ml-prep-box.git)
+cd ml-prep-box
+pip install -e .
+```
+
+---
+
+## 📊 Performance Showcase
+Here is a glimpse of what DataWise can do (Results from our Titanic benchmark):
+
+
+**1. Memory Optimization**
+
+By automatically downcasting data types, we achieved significant memory reduction:
+* Before: 0.27 MB
+* After: 0.24 MB
+* Efficiency: ~11% reduction (even on tiny datasets!)
+
+
+
+**2. Automated Strategy Suggestion**
+
+The engine analyzes your data and suggests the most robust strategies:
+
+![Strategy Suggestion](<img width="359" height="346" alt="image" src="https://github.com/user-attachments/assets/fe3aa1db-4c6d-40d0-8dae-7f1ecc9d30fa" />)
+
+**3. Final Transformed Data**
+   
+A preview of the production-ready data after One-Hot Encoding and Scaling:
+
+![Transformed Data](<img width="1764" height="867" alt="image" src="https://github.com/user-attachments/assets/11680229-25dc-4bfb-a997-074557f35012" />)
+
+  
+---
+
+
 ## 📅 Updated Technical Log
 
-**Current Focus:** Building the transformation engine to map metadata actions to [Scikit-Learn](https://scikit-learn.org) transformers.
+**Current Focus:** Finalizing the Python package distribution and creating the first official GitHub Release.
 
-**Latest Milestone:** Completed the core `processors.py` module (Scaling, Imputation, One-Hot Encoding) and integrated state management into `apply_transform`.
+**Latest Milestone:** Successfully restructured the project into the datawise package.
 
 **Upcoming Roadmap:**
 *   Testing the pipeline against real-world datasets ([PyCaret](https://pycaret.org), [UCI](https://archive.ics.uci.edu), [Kaggle](https://www.kaggle.com)) to ensure robustness.
 *   Official public release as a structured library once benchmarking is complete.
+*   Adding support for automated model selection.
 
-**Last Update:** `2026-02-07`
+**Last Update:** `2026-02-20`
 
 
 ---
