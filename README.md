@@ -146,18 +146,41 @@ A preview of the production-ready data after One-Hot Encoding and Scaling:
 ---
 
 
+## 🗺️ Future Roadmap (Towards v1.1.0)
+
+As we move beyond the initial release, the focus for **datawise** shifts toward **extensibility**, **robustness**, and **comprehensive validation**. Our goal is to transform the engine into a truly "solid" production-ready utility.
+
+### 🔌 1. Modular Plugin Architecture
+While the current version operates within the core `Toolbox` class, the next major update will introduce a **Pluggable Module System**.
+* **Custom Transformers:** Allow users to "plug in" their own preprocessing logic (e.g., specialized domain-specific encoders).
+* **Decoupled Logic:** Move towards a registry-based system where modules can be added or removed without altering the core engine code.
+
+### 📊 2. Extensive Cross-Dataset Benchmarking
+To ensure the "solidity" of our automated strategies, we will be stress-testing the pipeline against a diverse array of real-world datasets:
+* **Kaggle Benchmarks:** Testing on classic competition datasets (e.g., House Prices, Spaceship Titanic).
+* **UCI & OpenSource Data:** Validating against datasets with high noise, extreme skewness, and complex schemas.
+* **KPI Tracking:** Measuring transformation success rates, memory efficiency gains, and impact on downstream model performance.
+
+### 🛠️ 3. Refinement & Stability
+* **Bug Squashing:** Resolving edge cases identified during community testing.
+* **Enhanced Suggestions:** Improving the recommendation logic for high-cardinality categorical features and complex numeric distributions.
+* **CI/CD Integration:** Implementing GitHub Actions to automate testing and ensure every new update maintains core stability.
+
+---
+
+
 ## 📅 Updated Technical Log
 
 **Current Focus:** Finalizing the Python package distribution and creating the first official GitHub Release.
 
 **Latest Milestone:** Successfully restructured the project into the datawise package.
 
-**Upcoming Roadmap:**
+**Upcoming Roadmap (v1.1.0):**
 *   Testing the pipeline against real-world datasets ([PyCaret](https://pycaret.org), [UCI](https://archive.ics.uci.edu), [Kaggle](https://www.kaggle.com)) to ensure robustness.
 *   Official public release as a structured library once benchmarking is complete.
 *   Adding support for automated model selection.
 
-**Last Update:** `2026-02-20`
+**Last Update:** `2026-02-23`
 
 
 ---
