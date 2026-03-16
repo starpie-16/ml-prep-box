@@ -166,6 +166,25 @@ To ensure the "solidity" of our automated strategies, we will be stress-testing 
 * **Enhanced Suggestions:** Improving the recommendation logic for high-cardinality categorical features and complex numeric distributions.
 * **CI/CD Integration:** Implementing GitHub Actions to automate testing and ensure every new update maintains core stability.
 
+
+---
+
+
+## 🐞 Bug Tracking & Known Issues
+
+We maintain a transparent log of identified bugs and our progress in resolving them to ensure the library's reliability.
+
+| Issue | Description | Status | Target Version |
+| :--- | :--- | :--- | :--- |
+| **High Cardinality Misclassification** | Alphanumeric columns (e.g., `Ticket`) are sometimes processed with standard encoders instead of being identified as complex text. | 🛠 In Progress | `v1.0.1` |
+| **Dataset Inconsistency** | Certain automated suggestions fail when using lightweight versions of datasets (e.g., Seaborn's Titanic vs. Kaggle's CSV). | ✅ Resolved | `v1.0.0` |
+
+### 🛠 Work in Progress: Complex Text Handling
+The current logic for High Cardinality columns is being upgraded. 
+* **Current state:** Simple Label Encoding or Drop.
+* **Evolution path:** `Drop` (Temp) -> `TF-IDF` -> `Word Embeddings` (Future).
+
+
 ---
 
 
@@ -180,7 +199,7 @@ To ensure the "solidity" of our automated strategies, we will be stress-testing 
 *   Official public release as a structured library once benchmarking is complete.
 *   Adding support for automated model selection.
 
-**Last Update:** `2026-02-23`
+**Last Update:** `2026-03-16`
 
 
 ---
