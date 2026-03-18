@@ -75,13 +75,20 @@ def get_missing_stats(series):
 
 def get_cardinality_stats(series):
   """
-  checking data type diversity 
+  checking data type diversity using a relative ratio
   """
 
   distinct_count = series.nunique()
+  total_count = len(series)
+
+  distinct_ratio = distinct_count / total_count if total_count > 0 else 0
+
+  is_high = (distinct_ratio > 0.3) or (distinct_count > 50)
+  
   return {
       'distinct_count': distinct_count,
-      'is_high_cardinality': distinct_count > 50 
+      'distinct_ratio': distinct_ratio,
+      'is_high_cardinality': is_high 
   }
 
 
